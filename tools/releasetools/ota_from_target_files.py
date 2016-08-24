@@ -472,8 +472,19 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     # Stage 3/3: Make changes.
     script.Comment("Stage 3/3")
 
-  # Dump fingerprints
-  script.Print("Target: %s" % target_fp)
+  #script.Print("Target: %s" % CalculateFingerprint(
+  #    oem_props, oem_dict, OPTIONS.info_dict))
+  script.Print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+  script.Print("                                          ")
+  script.Print("      ________           __               ")
+  script.Print("     |   ___  |         |  |              ")
+  script.Print("     |  /___\_|  _____  |  |  _____       ")
+  script.Print("     |____   \  /     \ |  | /     \      ")
+  script.Print("          |  |  |  |  | |  | |  |  |      ")
+  script.Print("     |\___/  |  |  |  | |  | |  |  |      ")
+  script.Print("     |_______/  \_____/ |__| \_____/      ")
+  script.Print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+  script.Print(" ")
 
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
   device_specific.FullOTA_InstallBegin()
@@ -526,7 +537,6 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   common.CheckSize(boot_img.data, "boot.img", OPTIONS.info_dict)
   common.ZipWriteStr(output_zip, "boot.img", boot_img.data)
-
   device_specific.FullOTA_PostValidate()
 
   if OPTIONS.backuptool:
@@ -535,6 +545,8 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.RunBackup("restore")
     script.Unmount("/system")
 
+  script.Print(" ")
+  script.Print("Flashing Kernel..")
   script.ShowProgress(0.05, 5)
   script.WriteRawImage("/boot", "boot.img")
 
