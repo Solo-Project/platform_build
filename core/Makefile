@@ -2657,13 +2657,27 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) \
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-CUSTOM_TARGET_PACKAGE := $(PRODUCT_OUT)/$(TARGET_PRODUCT)-$(shell date +"%m%d%y").zip
+CUSTOM_TARGET_PACKAGE := $(PRODUCT_OUT)/$(TARGET_PRODUCT)-$(SOLO_VERSION).zip
 
 .PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(CUSTOM_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(CUSTOM_TARGET_PACKAGE) > $(CUSTOM_TARGET_PACKAGE).md5sum
+	@echo ""
+	@echo "Building ${bldcya}Solo ${txtrst}";
+	@echo ""
+	@echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	@echo "                                          "
+	@echo "      ________           __               "
+	@echo "     |   ___  |         |  |              "
+	@echo "     |  /___\_|  _____  |  |  _____       "
+	@echo "     |____   \  /     \ |  | /     \      "
+	@echo "          |  |  |  |  | |  | |  |  |      "
+	@echo "     |\___/  |  |  |  | |  | |  |  |      "
+	@echo "     |_______/  \_____/ |__| \_____/      "
+	@echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	@echo ""
 	@echo "Package Complete: $(CUSTOM_TARGET_PACKAGE)"
 
 endif    # build_ota_package
